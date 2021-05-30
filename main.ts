@@ -65,27 +65,37 @@ input.onButtonPressed(Button.A, function () {
     draw()
 })
 radio.onReceivedMessage(RadioMessage.hello, function () {
-    x = 0
-    y = 0
-    x_step = 0
-    y_step = 0
-    direction = "X"
-    other_direction = "X"
-    other_x = 0
-    other_y = 0
-    hello = true
-    draw()
-    basic.pause(1000)
-    hello = false
-    draw()
+    if (!(Is_other_online)) {
+        radio.sendMessage(RadioMessage.hello)
+        Is_other_online = true
+        x = 0
+        y = 0
+        x_step = 0
+        y_step = 0
+        direction = "X"
+        other_direction = "X"
+        other_x = 0
+        other_y = 0
+        hello = true
+        basic.showLeds(`
+            . . # . .
+            . # # # .
+            # . # . #
+            . . # . .
+            . . # . .
+            `)
+        basic.pause(500)
+        hello = false
+        draw()
+    }
 })
 function draw () {
-    if (hello) {
-        basic.showIcon(IconNames.Happy)
-    } else {
+    if (!(hello)) {
         basic.clearScreen()
         draw_player(x, y, direction)
-        draw_player(other_x, other_y, other_direction)
+        if (Is_other_online) {
+            draw_player(other_x, other_y, other_direction)
+        }
     }
 }
 input.onButtonPressed(Button.AB, function () {
@@ -145,6 +155,8 @@ let x_step = 0
 let x = 0
 let other_direction = ""
 let direction = ""
+let Is_other_online = false
+Is_other_online = false
 direction = "X"
 other_direction = "X"
 radio.sendMessage(RadioMessage.hello)
