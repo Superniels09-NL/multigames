@@ -65,6 +65,14 @@ input.onButtonPressed(Button.A, function () {
     draw()
 })
 radio.onReceivedMessage(RadioMessage.hello, function () {
+    x = 0
+    y = 0
+    x_step = 0
+    y_step = 0
+    direction = "X"
+    other_direction = "X"
+    other_x = 0
+    other_y = 0
     hello = true
     draw()
     basic.pause(1000)
@@ -128,9 +136,9 @@ radio.onReceivedMessage(RadioMessage.down, function () {
     other_y += 1
     draw()
 })
+let hello = false
 let other_y = 0
 let other_x = 0
-let hello = false
 let y_step = 0
 let y = 0
 let x_step = 0
@@ -138,6 +146,7 @@ let x = 0
 let other_direction = ""
 let direction = ""
 direction = "X"
+other_direction = "X"
 radio.sendMessage(RadioMessage.hello)
 draw()
 basic.forever(function () {
